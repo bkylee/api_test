@@ -35,4 +35,4 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     # Update the item
     container.upsert_item(item_response)
 
-    return func.HttpResponse(f"Visitor count: {item_response['count']}")
+    return func.HttpResponse({item_response["count"]})
