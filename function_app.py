@@ -1,9 +1,12 @@
 import logging
+import json
 import os
 import azure.functions as func
-from azure.cosmos import CosmosClient, PartitionKey
+from azure.cosmos import CosmosClient
 
 app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)
+connection_string = os.getenv("CONNECTION_STRING")
+client = CosmosClient.from_connection_string(connection_string)
 
 
 @app.function_name(name="visitorCount")
@@ -14,9 +17,6 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     # Initialize Cosmos Client
     # create env vars by using export varname=whatever
     # i also created app settings for these
-    url = os.getenv("COSMOSDB_URL")
-    key = os.getenv("COSMOSDB_KEY")
-    client = CosmosClient(url, credential=key)
 
     # Select database
     database_name = "my-database"
@@ -35,4 +35,4 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     # Update the item
     container.upsert_item(item_response)
 
-    return func.HttpResponse({item_response["count"]})
+    return func.HttpResponse(json.dumps({"count": item_response["count"]}))
