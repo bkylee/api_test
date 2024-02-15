@@ -9,6 +9,7 @@ connection_string = os.getenv("CONNECTION_STRING")
 client = CosmosClient.from_connection_string(connection_string)
 
 
+# test
 @app.function_name(name="visitorCount")
 @app.route(route="visitorCount")
 def main(req: func.HttpRequest) -> func.HttpResponse:
