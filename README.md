@@ -1,0 +1,1 @@
+Python function that originally was used to count the number of visitors that visit my website. However, the counter counts each page refresh, so I've repurpose/renamed to page refresh on my website. 
